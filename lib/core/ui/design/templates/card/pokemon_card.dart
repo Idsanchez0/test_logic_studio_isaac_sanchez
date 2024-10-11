@@ -52,6 +52,7 @@ class _OptionCard extends State<OptionCard> {
                 width: 25.sp,
                 child: FloatingActionButton(
                   backgroundColor: Colors.black.withOpacity(.7),
+                  heroTag: null,
                   onPressed: () =>
                       controller.addFavorite(int.parse(widget.id.toString())),
                   child: Icon(
@@ -68,6 +69,7 @@ class _OptionCard extends State<OptionCard> {
                 width: 25.sp,
                 child: FloatingActionButton(
                   backgroundColor: Colors.black.withOpacity(.7),
+                  heroTag: null,
                   onPressed: () => routes.pokemonDetail(
                       id: widget.id,
                       name: widget.title,

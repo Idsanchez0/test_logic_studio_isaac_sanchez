@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test_isaac/core/services/services.dart';
 import 'package:test_isaac/features/detail_card/presentation/widgets/stast_item.dart';
 
-import '../../../../core/ui/utils/colors/color_generator.dart';
+import '../../../../core/ui/utils/colors/colors.dart';
 import '../controller/detail_card_controller.dart';
 import 'attributes.dart';
 
@@ -23,39 +22,17 @@ class StatsCard extends StatefulWidget {
 }
 
 class _StatsCard extends State<StatsCard> {
-  Color colorCard = Colors.transparent;
-  List<String> listType = [];
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () => validateColorCard());
-  }
-
-  validateColorCard() async {
-    var state = widget.ref.watch(detailCardController);
-    ColorsGenerator colorsGenerator = ColorsGenerator();
-    Color colorCardGenerated = await colorsGenerator.generateCardColor(
-        services.createUrlImage(id: widget.id), false);
-    if (mounted) {
-      setState(() {
-        colorCard = colorCardGenerated;
-        listType = state.dataDetail!.typeLine!;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     var state = widget.ref.watch(detailCardController);
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 5.sp),
+        padding: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 10.sp),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(15.sp)),
           gradient: LinearGradient(
               colors: [
                 Colors.black.withOpacity(.9),
-                colorCard,
+                colors.primary500.withOpacity(.5),
               ],
               begin: const FractionalOffset(0.0, 2.5),
               end: const FractionalOffset(3.5, .5),
@@ -92,10 +69,7 @@ class _StatsCard extends State<StatsCard> {
               Wrap(
                 children: [
                   for (var item in state.dataDetail!.typeLine!) ...[
-                    Expanded(
-                      child:
-                          Attributes(title: 'Type Line', text: item.toString()),
-                    ),
+                    Attributes(title: 'Type Line', text: item.toString()),
                   ]
                 ],
               )
@@ -111,7 +85,7 @@ class _StatsCard extends State<StatsCard> {
                   gradient: LinearGradient(
                       colors: [
                         Colors.black.withOpacity(.9),
-                        colorCard,
+                        colors.primary500.withOpacity(.5),
                       ],
                       begin: const FractionalOffset(0.0, 2.5),
                       end: const FractionalOffset(3.5, .5),
@@ -125,19 +99,19 @@ class _StatsCard extends State<StatsCard> {
                     if (state.dataDetail!.atk != null) ...[
                       StatsItem(
                           title: 'ATK',
-                          colorCard: colorCard,
+                          colorCard: colors.primary500.withOpacity(.5),
                           value: state.dataDetail!.atk.toString())
                     ],
                     if (state.dataDetail!.def != null) ...[
                       StatsItem(
                           title: 'DEF',
-                          colorCard: colorCard,
+                          colorCard: colors.primary500.withOpacity(.5),
                           value: state.dataDetail!.def.toString())
                     ],
                     if (state.dataDetail!.level != null) ...[
                       StatsItem(
                           title: 'LEVEL',
-                          colorCard: colorCard,
+                          colorCard: colors.primary500.withOpacity(.5),
                           star: true,
                           value: state.dataDetail!.level.toString())
                     ]

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -9,7 +7,7 @@ import 'package:test_isaac/core/ui/utils/colors/colors.dart';
 
 import '../../../../core/ui/design/atoms/text/body/sm_p.dart';
 
-class StatsItem extends StatefulWidget {
+class StatsItem extends StatelessWidget {
   const StatsItem(
       {super.key,
       required this.title,
@@ -20,14 +18,9 @@ class StatsItem extends StatefulWidget {
   final String value;
   final Color colorCard;
   final bool? star;
-  @override
-  State<StatsItem> createState() => _StatsItem();
-}
 
-class _StatsItem extends State<StatsItem> {
   @override
   Widget build(BuildContext context) {
-    log('value ${widget.value.toString()}');
     return Table(
       columnWidths: const {
         0: FlexColumnWidth(2),
@@ -39,25 +32,25 @@ class _StatsItem extends State<StatsItem> {
           TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
               child: SmP(
-                  title: services.firstLetterUpperCase(title: widget.title),
+                  title: services.firstLetterUpperCase(title: title),
                   color: Colors.white,
                   align: TextAlign.start,
                   fontWeight: FontWeight.w500)),
           TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
               child: SmP(
-                  title: widget.value,
+                  title: value,
                   color: colors.primary500,
                   align: TextAlign.start,
                   fontWeight: FontWeight.w700)),
           TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: widget.star != null
+              child: star != null
                   ? SizedBox(
                       height: 20.sp,
                       child: ListView.builder(
                           padding: EdgeInsets.symmetric(horizontal: 5.sp),
-                          itemCount: int.parse(widget.value.toString()),
+                          itemCount: int.parse(value.toString()),
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           physics: const NeverScrollableScrollPhysics(),
@@ -72,9 +65,9 @@ class _StatsItem extends State<StatsItem> {
                       lineHeight: 8.sp,
                       animationDuration: 800,
                       backgroundColor: Colors.grey.withOpacity(.2),
-                      percent: double.parse(widget.value) >= 100
+                      percent: double.parse(value) >= 100
                           ? 1.0
-                          : services.percentReturn(widget.value),
+                          : services.percentReturn(value),
                       barRadius: Radius.circular(50.sp),
                       progressColor: colors.primary500,
                     )),

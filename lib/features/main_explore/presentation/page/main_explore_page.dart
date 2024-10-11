@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:test_isaac/core/ui/design/atoms/text_field/custom_drop_down_field.dart';
 import 'package:test_isaac/core/ui/design/atoms/text_field/custom_search_field.dart';
 import 'package:test_isaac/core/ui/design/templates/card/error_modal_card.dart';
@@ -112,10 +111,7 @@ class _MainExplorePageState extends ConsumerState<MainExplorePage> {
     var state = ref.watch(mainExploreController);
     setState(() {
       String searchText = searchController.text.toLowerCase();
-
-      // Filtramos tanto por 'name' como por 'archetype'
       var filteredItems = state.listData?.where((item) {
-        // Verificamos si el 'name' o el 'archetype' contienen el texto de búsqueda
         return (item.name.toLowerCase().contains(searchText) ||
             item.archetype.toString().toLowerCase().contains(searchText));
       }).toList();
@@ -123,8 +119,6 @@ class _MainExplorePageState extends ConsumerState<MainExplorePage> {
       List<ListCards> result = [
         ...?filteredItems,
       ];
-
-      // Eliminamos duplicados si los hay
       filteredList = result.toSet().toList();
     });
   }
@@ -152,9 +146,10 @@ class _MainExplorePageState extends ConsumerState<MainExplorePage> {
       appBar: const DashboardHeader(),
       floatingActionButton: FloatingActionButton(
         onPressed: () => routes.mainExplore(context: context),
+        heroTag: null,
         backgroundColor: colors.primary500,
         child: Icon(
-          PhosphorIcons.arrowsClockwise(),
+          Icons.refresh_outlined,
           size: 25.sp,
           color: Colors.white,
         ),

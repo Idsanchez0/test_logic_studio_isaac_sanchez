@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test_isaac/core/services/services.dart';
 import 'package:test_isaac/features/detail_card/presentation/widgets/attributes.dart';
 
-import '../../../../core/ui/utils/colors/color_generator.dart';
+import '../../../../core/ui/utils/colors/colors.dart';
 import '../controller/detail_card_controller.dart';
 
-class PricesCard extends StatefulWidget {
+class PricesCard extends StatelessWidget {
   const PricesCard({
     super.key,
     required this.id,
@@ -15,33 +14,10 @@ class PricesCard extends StatefulWidget {
   });
   final String id;
   final WidgetRef ref;
-  @override
-  State<PricesCard> createState() => _PricesCard();
-}
-
-class _PricesCard extends State<PricesCard> {
-  Color colorCard = Colors.transparent;
-
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(Duration.zero, () => validateColorCard());
-  }
-
-  validateColorCard() async {
-    ColorsGenerator colorsGenerator = ColorsGenerator();
-    Color colorCardGenerated = await colorsGenerator.generateCardColor(
-        services.createUrlImage(id: widget.id), false);
-    if (mounted) {
-      setState(() {
-        colorCard = colorCardGenerated;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    var state = widget.ref.watch(detailCardController);
+    var state = ref.watch(detailCardController);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 15.sp),
       decoration: BoxDecoration(
@@ -49,10 +25,10 @@ class _PricesCard extends State<PricesCard> {
         gradient: LinearGradient(
             colors: [
               Colors.black.withOpacity(.9),
-              colorCard,
+              colors.primary500.withOpacity(.5),
             ],
             begin: const FractionalOffset(0.0, 2.5),
-            end: const FractionalOffset(1.5, .5),
+            end: const FractionalOffset(3.5, .5),
             stops: const [0.0, 1.0],
             tileMode: TileMode.clamp),
       ),

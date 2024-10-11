@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/detail_card_repository.dart';
@@ -14,8 +12,6 @@ class DetailCardController extends StateNotifier<DetailCardState> {
   Future<bool> getDetail({required String id}) async {
     List<DetailCard> data = await detailCardRepository.getDetailCard(id: id);
     state = state.copyWith(dataDetail: data.first, option: 'stats');
-    log('data de la carta ${data.first.id.toString()}');
-    log('LIST TYPE ${data.first.typeLine}');
     if (data.isEmpty) {
       return false;
     } else {
