@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:test_isaac/core/ui/design/atoms/text/body/md_p.dart';
 
 import '../../../../../features/main_explore/presentation/controller/main_explore_controller.dart';
-import '../../../utils/colors/color_generator.dart';
 import '../../../utils/routes/routes.dart';
 
-class PokemonCard extends StatefulWidget {
-  const PokemonCard(
+class OptionCard extends StatefulWidget {
+  const OptionCard(
       {super.key,
       required this.isSelected,
       required this.title,
@@ -22,27 +20,13 @@ class PokemonCard extends StatefulWidget {
   final String id;
   final WidgetRef ref;
   @override
-  State<PokemonCard> createState() => _PokemonCard();
+  State<OptionCard> createState() => _OptionCard();
 }
 
-class _PokemonCard extends State<PokemonCard> {
-  Color colorCard = Colors.transparent;
-
+class _OptionCard extends State<OptionCard> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () => validateColorCard());
-  }
-
-  validateColorCard() async {
-    ColorsGenerator colorsGenerator = ColorsGenerator();
-    Color colorCardGenerated =
-        await colorsGenerator.generateCardColor(widget.image, false);
-    if (mounted) {
-      setState(() {
-        colorCard = colorCardGenerated;
-      });
-    }
   }
 
   @override
@@ -51,44 +35,52 @@ class _PokemonCard extends State<PokemonCard> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
       decoration: BoxDecoration(
-          color: colorCard,
+          color: Colors.transparent,
           image: DecorationImage(
               image: NetworkImage(widget.image),
               fit: BoxFit.contain,
               opacity: .95),
           borderRadius: BorderRadius.all(Radius.circular(15.sp))),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          GestureDetector(
-            onTap: () =>
-                controller.addFavorite(int.parse(widget.id.toString())),
-            child: Icon(
-              widget.isSelected
-                  ? PhosphorIconsFill.heart
-                  : PhosphorIcons.heart(),
-              color: widget.isSelected ? Colors.red : Colors.white,
-            ),
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                  child: MdP(
-                      title: widget.title,
-                      color: Colors.white,
-                      align: TextAlign.start,
-                      fontWeight: FontWeight.bold)),
-              GestureDetector(
-                  onTap: () => routes.pokemonDetail(
+              SizedBox(
+                height: 25.sp,
+                width: 25.sp,
+                child: FloatingActionButton(
+                  backgroundColor: Colors.black.withOpacity(.7),
+                  onPressed: () =>
+                      controller.addFavorite(int.parse(widget.id.toString())),
+                  child: Icon(
+                    size: 18.sp,
+                    widget.isSelected
+                        ? PhosphorIconsFill.heart
+                        : PhosphorIcons.heart(),
+                    color: widget.isSelected ? Colors.red : Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25.sp,
+                width: 25.sp,
+                child: FloatingActionButton(
+                  backgroundColor: Colors.black.withOpacity(.7),
+                  onPressed: () => routes.pokemonDetail(
                       id: widget.id,
                       name: widget.title,
+                      image: widget.image,
                       context: context,
                       isSelected: widget.isSelected),
-                  child: const Icon(
-                    Icons.arrow_circle_right_outlined,
+                  child: Icon(
+                    size: 18.sp,
+                    PhosphorIcons.caretRight(),
                     color: Colors.white,
-                  ))
+                  ),
+                ),
+              ),
             ],
           )
         ],

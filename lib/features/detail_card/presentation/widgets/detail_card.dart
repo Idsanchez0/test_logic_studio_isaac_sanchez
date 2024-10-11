@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_isaac/core/ui/design/atoms/text/body/md_p.dart';
 
-import '../../../../core/services/services.dart';
-import '../../../../core/ui/design/atoms/text/body/lg_p.dart';
-import '../../../../core/ui/design/atoms/text/body/sm_p.dart';
-import '../controller/detail_pokemon_controller.dart';
+import '../../../../core/ui/utils/colors/colors.dart';
+import '../controller/detail_card_controller.dart';
 
 class DetailCard extends StatefulWidget {
   const DetailCard({super.key, required this.ref});
@@ -16,48 +16,82 @@ class DetailCard extends StatefulWidget {
 class _DetailCard extends State<DetailCard> {
   @override
   Widget build(BuildContext context) {
-    var state = widget.ref.watch(detailPokemonController);
+    var state = widget.ref.watch(detailCardController);
     return state.dataDetail == null
         ? Container()
-        : Table(
+        : Column(
             children: [
-              TableRow(children: [
-                TableCell(
-                    child: Column(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: RichText(
+                          text: TextSpan(children: [
+                    WidgetSpan(
+                        child: MdP(
+                            title: 'Nombre: ',
+                            color: colors.neutral400,
+                            align: TextAlign.justify,
+                            fontWeight: FontWeight.bold)),
+                    WidgetSpan(
+                        child: MdP(
+                            title: state.dataDetail!.name.toString(),
+                            color: Colors.white,
+                            align: TextAlign.justify,
+                            fontWeight: FontWeight.w500))
+                  ])))
+                ],
+              ),
+              SizedBox(
+                height: 10.sp,
+              ),
+              if (state.dataDetail!.attribute != null) ...[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LgP(
-                      title: services
-                          .decimetersToMeters(state.dataDetail!.height.toInt()),
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      align: TextAlign.center,
-                    ),
-                    const SmP(
-                        title: 'Height',
-                        color: Colors.white,
-                        align: TextAlign.center,
-                        fontWeight: FontWeight.w500)
+                    Expanded(
+                        child: RichText(
+                            text: TextSpan(children: [
+                      WidgetSpan(
+                          child: MdP(
+                              title: 'Atributo: ',
+                              color: colors.neutral400,
+                              align: TextAlign.justify,
+                              fontWeight: FontWeight.bold)),
+                      WidgetSpan(
+                          child: MdP(
+                              title: state.dataDetail!.attribute.toString(),
+                              color: Colors.white,
+                              align: TextAlign.justify,
+                              fontWeight: FontWeight.w500))
+                    ])))
                   ],
-                )),
-                TableCell(child: Container()),
-                TableCell(
-                    child: Column(
-                  children: [
-                    LgP(
-                      title: services.hectogramsToKilograms(
-                          state.dataDetail!.weight.toInt()),
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      align: TextAlign.center,
-                    ),
-                    const SmP(
-                        title: 'Weight',
-                        color: Colors.white,
-                        align: TextAlign.center,
-                        fontWeight: FontWeight.w500)
-                  ],
-                ))
-              ])
+                ),
+                SizedBox(
+                  height: 10.sp,
+                ),
+              ],
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: RichText(
+                          text: TextSpan(children: [
+                    WidgetSpan(
+                        child: MdP(
+                            title: 'Descripción: ',
+                            color: colors.neutral400,
+                            align: TextAlign.start,
+                            fontWeight: FontWeight.bold)),
+                    WidgetSpan(
+                        child: MdP(
+                            title: state.dataDetail!.desc.toString(),
+                            color: Colors.white,
+                            align: TextAlign.start,
+                            fontWeight: FontWeight.w500))
+                  ])))
+                ],
+              ),
             ],
           );
   }

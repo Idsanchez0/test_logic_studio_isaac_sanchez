@@ -19,7 +19,6 @@ class CustomSearchField extends StatefulWidget {
 }
 
 class _CustomSearchField extends State<CustomSearchField> {
-  String env = '';
   @override
   void initState() {
     super.initState();

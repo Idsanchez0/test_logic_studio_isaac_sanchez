@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_isaac/core/ui/utils/images/images.dart';
 import 'package:test_isaac/core/ui/utils/routes/routes.dart';
 
@@ -26,8 +27,13 @@ class _SplashScreenPageState extends ConsumerState<SplashScreenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black,
         body: Center(
-      child: Image.asset(images.loader),
-    ));
+          child: Image.asset(
+            images.loader,
+            height: 400.sp,
+            fit: BoxFit.cover,
+          ),
+        ));
   }
 }

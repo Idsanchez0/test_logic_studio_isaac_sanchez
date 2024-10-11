@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_isaac/core/ui/design/atoms/text/body/xlg_p.dart';
 import 'package:test_isaac/core/ui/utils/colors/colors.dart';
 
-import '../controller/detail_pokemon_controller.dart';
+import '../controller/detail_card_controller.dart';
 
 class Tabs extends StatefulWidget {
   const Tabs({
@@ -20,7 +20,7 @@ class Tabs extends StatefulWidget {
 class _Tabs extends State<Tabs> {
   @override
   Widget build(BuildContext context) {
-    var state = widget.ref.watch(detailPokemonController);
+    var state = widget.ref.watch(detailCardController);
     return Table(
       children: [
         TableRow(children: [
@@ -35,7 +35,7 @@ class _Tabs extends State<Tabs> {
                                     ? Colors.white
                                     : Colors.transparent))),
                     child: XlgP(
-                      title: 'Stats',
+                      title: 'Atributos',
                       color: state.option == 'stats'
                           ? Colors.white
                           : colors.neutral600,
@@ -54,7 +54,7 @@ class _Tabs extends State<Tabs> {
                                     ? Colors.white
                                     : Colors.transparent))),
                     child: XlgP(
-                      title: 'Moves',
+                      title: 'Precios',
                       color: state.option == 'moves'
                           ? Colors.white
                           : colors.neutral600,

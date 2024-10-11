@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:test_isaac/core/services/services.dart';
-import 'package:test_isaac/core/ui/design/atoms/text/header/h1.dart';
 import 'package:test_isaac/features/main_explore/presentation/controller/main_explore_controller.dart';
+
+import '../../atoms/text/header/h6.dart';
 
 class DetailHeader extends StatefulWidget implements PreferredSizeWidget {
   const DetailHeader(
@@ -46,17 +47,21 @@ class _DetailHeader extends State<DetailHeader> {
                   size: 35.sp,
                 ),
               ),
-              H1(
-                  title: services.firstLetterUpperCase(title: widget.title),
-                  color: Colors.white,
-                  align: TextAlign.center),
+              Expanded(
+                child: H6(
+                    title: services.firstLetterUpperCase(title: widget.title),
+                    color: Colors.white,
+                    align: TextAlign.center),
+              ),
               GestureDetector(
                 onTap: () => controller.addFavorite(widget.id),
                 child: Icon(
-                  state.favorite!.contains(widget.id)
+                  (state.favorite != null &&
+                          state.favorite!.contains(widget.id))
                       ? PhosphorIconsFill.heart
                       : PhosphorIcons.heart(),
-                  color: state.favorite!.contains(widget.id)
+                  color: (state.favorite != null &&
+                          state.favorite!.contains(widget.id))
                       ? Colors.red
                       : Colors.white,
                   size: 35.sp,

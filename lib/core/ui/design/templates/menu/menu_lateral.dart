@@ -127,7 +127,7 @@ class _MenuLateral extends State<MenuLateral> {
                                 width: 10.sp,
                               ),
                               const MdP(
-                                  title: 'LinkedIn',
+                                  title: 'Whatsapp',
                                   color: Colors.white,
                                   align: TextAlign.center,
                                   fontWeight: FontWeight.w500)

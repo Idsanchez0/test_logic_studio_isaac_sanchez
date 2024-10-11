@@ -1,5 +1,5 @@
 class Network {
-  final String urlBackend = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
+  final String urlBackend = 'https://db.ygoprodeck.com/api/v7';
   final String urlImagePokemon =
       'https://assets.pokemon.com/assets/cms2/img/pokedex/full/';
   final String linkedin =
