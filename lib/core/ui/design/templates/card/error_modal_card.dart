@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../utils/colors/colors.dart';
-import '../../atoms/body/md_p.dart';
-import '../../atoms/header/h2.dart';
+import '../../atoms/text/body/md_p.dart';
+import '../../atoms/text/header/h2.dart';
 import '../../molecules/buttons/buttons_custom.dart';
 
 class ErrorModalCard extends StatefulWidget {

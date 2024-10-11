@@ -1,46 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loadmore_listview/loadmore_listview.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_isaac/core/services/services.dart';
+import 'package:test_isaac/core/ui/design/templates/card/pokemon_card.dart';
+import 'package:test_isaac/features/main_explore/domain/list_pokemon.dart';
+import 'package:test_isaac/features/main_explore/presentation/controller/main_explore_controller.dart';
 
-import '../../../../core/ui/design/templates/card/image_card.dart';
-import '../controller/main_explore_controller.dart';
-
-class ListDataWidget extends ConsumerStatefulWidget {
-  const ListDataWidget({super.key, required this.initData});
+class ListDataWidget extends StatefulWidget {
+  const ListDataWidget(
+      {super.key,
+      required this.initData,
+      required this.ref,
+      required this.data});
   final Function initData;
+  final WidgetRef ref;
+  final List<ListPokemon> data;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _ListDataWidgetState();
+  State<ListDataWidget> createState() => _ListDataWidgetState();
 }
 
-class _ListDataWidgetState extends ConsumerState<ListDataWidget> {
+class _ListDataWidgetState extends State<ListDataWidget> {
   @override
   Widget build(BuildContext context) {
-    var state = ref.watch(mainExploreController);
-    var controller = ref.watch(mainExploreController.notifier);
-    return LoadMoreListView.builder(
-      hasMoreItem: true,
-      onLoadMore: () async {
-        await Future.delayed(const Duration(seconds: 1));
-        controller.loadMoreItems();
-      },
-      onRefresh: () async {
-        await Future.delayed(const Duration(seconds: 1));
-        widget.initData();
-      },
-      loadMoreWidget: Container(
-        margin: const EdgeInsets.all(20.0),
-        alignment: Alignment.center,
-        child: const CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(Colors.blueAccent),
-        ),
+    var state = widget.ref.watch(mainExploreController);
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: widget.data.length >= 2 ? 2 : 1,
+        childAspectRatio: 1.sp,
+        crossAxisSpacing: 15.sp,
+        mainAxisSpacing: 15.sp,
       ),
-      itemCount: state.limit == null ? 0 : state.limit!,
+      itemCount: widget.data.length,
       itemBuilder: (context, index) {
-        return ImageCard(
-            imagePath: state.listData == null ? '' : state.listData![index].url,
-            title:
-                '${state.listData == null ? '' : state.listData![index].title} ${index.toString()}');
+        bool isSelected = state.favorite != null &&
+            state.favorite!
+                .contains(int.parse(widget.data[index].id.toString()));
+        return GestureDetector(
+          child: PokemonCard(
+            title: widget.data[index].name.toString(),
+            image:
+                services.createUrlImage(id: widget.data[index].id.toString()),
+            id: widget.data[index].id.toString(),
+            isSelected: isSelected,
+            ref: widget.ref,
+          ),
+        );
       },
     );
   }

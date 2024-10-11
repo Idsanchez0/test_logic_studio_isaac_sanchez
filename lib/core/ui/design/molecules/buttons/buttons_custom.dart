@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../atoms/buttons/button_bold.dart';
+import '../../atoms/text/buttons/button_bold.dart';
 
 class ButtonsCustom extends StatelessWidget {
   final dynamic color;

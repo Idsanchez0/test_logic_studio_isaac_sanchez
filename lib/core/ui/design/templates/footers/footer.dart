@@ -20,7 +20,7 @@ class _Footer extends State<Footer> {
     return Container(
       padding: EdgeInsets.only(bottom: 30.sp, top: 10.sp),
       decoration: BoxDecoration(
-        color: Colors.black,
+        color: Colors.black.withOpacity(.85),
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(25.sp), topRight: Radius.circular(25.sp)),
       ),

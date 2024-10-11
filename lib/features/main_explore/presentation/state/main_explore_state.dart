@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-
-import '../../domain/main_explore_model.dart';
+import 'package:test_isaac/features/main_explore/domain/list_pokemon.dart';
 
 class MainExploreState {
-  final List<MainExploreModel>? listData;
-  final int? limit;
+  final List<ListPokemon>? listData;
+  final int? offset;
+  final Set<int>? favorite;
   final ScrollController? scrollController;
-  MainExploreState({this.listData, this.limit, this.scrollController});
+  MainExploreState(
+      {this.listData, this.offset, this.scrollController, this.favorite});
 
   MainExploreState copyWith(
-      {List<MainExploreModel>? listData,
+      {List<ListPokemon>? listData,
       int? index,
-      int? limit,
+      Set<int>? favorite,
+      int? offset,
       ScrollController? scrollController}) {
     return MainExploreState(
         listData: listData ?? this.listData,
-        limit: limit ?? this.limit,
+        offset: offset ?? this.offset,
+        favorite: favorite ?? this.favorite,
         scrollController: scrollController ?? this.scrollController);
   }
 }
