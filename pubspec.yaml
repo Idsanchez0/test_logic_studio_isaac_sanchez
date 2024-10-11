@@ -1,0 +1,46 @@
+name: test_isaac
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.6
+  intl: ^0.19.0
+  flutter_screenutil: ^5.9.3
+  responsive_builder: ^0.7.1
+  page_transition: ^2.1.0
+  flutter_spinkit: ^5.2.1
+  flutter_riverpod: ^2.4.10
+  http: ^1.2.0
+  loadmore_listview: ^1.0.7
+  url_launcher: ^6.2.5
+  phosphor_flutter: ^2.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^3.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+
