@@ -21,17 +21,16 @@ Esta es una aplicación de Yu-Gi-Oh! desarrollada en Flutter que permite a los u
 
 1. Clona este repositorio:
 
-   git clone https://github.com/Idsanchez0/test_logic_studio_isaac_sanchez
+* git clone https://github.com/Idsanchez0/test_logic_studio_isaac_sanchez
    
-
 2. Navega al directorio del proyecto:
    
-  cd yu-gi-oh-card-app
+* cd yu-gi-oh-card-app
 
 3. Instala las dependencias:
 
-  flutter pub get
+* flutter pub get
 
 4. Ejecuta la aplicación en un dispositivo o emulador:
 
-  flutter run
+* flutter run
